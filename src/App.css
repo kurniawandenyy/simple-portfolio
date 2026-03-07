@@ -94,6 +94,19 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  min-height: 1.5em;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #2563eb;
+  animation: blink 0.75s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
 .hero h1 {

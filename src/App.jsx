@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import kuadranLogo from './assets/kuadran.jpg'
 import nutechLogo from './assets/nutech.png'
 import paragonLogo from './assets/paragon.png'
@@ -213,11 +213,48 @@ const education = [
 
 const linkedinUrl = 'https://linkedin.com/in/deny-kurniawan-229342197/'
 
+function useTyping(words, { typeSpeed = 80, deleteSpeed = 50, pause = 1800 } = {}) {
+  const [displayed, setDisplayed] = useState('')
+  const [wordIndex, setWordIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const timeout = useRef(null)
+
+  useEffect(() => {
+    const current = words[wordIndex % words.length]
+
+    if (!isDeleting && displayed === current) {
+      timeout.current = setTimeout(() => setIsDeleting(true), pause)
+    } else if (isDeleting && displayed === '') {
+      setIsDeleting(false)
+      setWordIndex((i) => (i + 1) % words.length)
+    } else {
+      const next = isDeleting
+        ? current.slice(0, displayed.length - 1)
+        : current.slice(0, displayed.length + 1)
+      timeout.current = setTimeout(
+        () => setDisplayed(next),
+        isDeleting ? deleteSpeed : typeSpeed
+      )
+    }
+
+    return () => clearTimeout(timeout.current)
+  }, [displayed, isDeleting, wordIndex, words, typeSpeed, deleteSpeed, pause])
+
+  return displayed
+}
+
 function App() {
   const [lang, setLang] = useState('en')
   const t = uiText[lang]
   const whatsappUrl =
     'https://wa.me/6285186854237?text=Hello%20Deny%2C%20I%20want%20to%20discuss%20a%20backend%20opportunity.'
+
+  const typedRole = useTyping([
+    'Backend Developer',
+    'Node.js Engineer',
+    'API Specialist',
+    'Problem Solver',
+  ])
 
   return (
     <div className="portfolio">
@@ -251,7 +288,9 @@ function App() {
         </nav>
 
         <div className="hero-content">
-          <p className="eyebrow">{t.role}</p>
+          <p className="eyebrow">
+            {typedRole}<span className="cursor">|</span>
+          </p>
           <h1>{t.heroTitle}</h1>
           <p className="hero-description">{t.heroDescription}</p>
           <p className="hero-meta">📍 {t.location}</p>
