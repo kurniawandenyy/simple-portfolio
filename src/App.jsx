@@ -20,8 +20,8 @@ const uiText = {
     viewExperience: 'View Experience',
     emailMe: 'Email Me',
     whatsappMe: 'WhatsApp',
-    downloadCv: 'Download CV',
     linkedin: 'LinkedIn',
+    downloadCv: 'Download CV',
     summaryTitle: 'About Me',
     summaryText:
       'Disciplined and solution-oriented backend engineer with strong ownership in debugging, system analysis, and API development. Proven ability to work independently and collaboratively to deliver scalable features and smooth system integrations.',
@@ -243,6 +243,49 @@ function useTyping(words, { typeSpeed = 80, deleteSpeed = 50, pause = 1800 } = {
   return displayed
 }
 
+function useScrollReveal() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.12 }
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+}
+
+function useActiveSection(sectionIds) {
+  const [active, setActive] = useState('')
+
+  useEffect(() => {
+    function onScroll() {
+      const scrollY = window.scrollY + 80 // offset for fixed nav height
+
+      let current = ''
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el && el.offsetTop <= scrollY) {
+          current = id
+        }
+      }
+      setActive(current)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll() // run once on mount
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [sectionIds])
+
+  return active
+}
+
 function App() {
   const [lang, setLang] = useState('en')
   const t = uiText[lang]
@@ -256,38 +299,41 @@ function App() {
     'Problem Solver',
   ])
 
+  useScrollReveal()
+  const activeSection = useActiveSection(['about', 'experience', 'education', 'contact'])
+
   return (
     <div className="portfolio">
-      <header className="hero" id="home">
-        <nav className="nav">
-          <p className="brand">Deny Kurniawan</p>
-          <div className="nav-right">
-            <div className="nav-links">
-              <a href="#about">{t.navAbout}</a>
-              <a href="#experience">{t.navExperience}</a>
-              <a href="#education">{t.navEducation}</a>
-              <a href="#contact">{t.navContact}</a>
-            </div>
-            <div className="lang-toggle">
-              <button
-                type="button"
-                className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
-                onClick={() => setLang('en')}
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                className={`lang-btn ${lang === 'id' ? 'active' : ''}`}
-                onClick={() => setLang('id')}
-              >
-                ID
-              </button>
-            </div>
+      <nav className="nav">
+        <p className="brand">Deny Kurniawan</p>
+        <div className="nav-right">
+          <div className="nav-links">
+            <a href="#about" className={activeSection === 'about' ? 'nav-active' : ''}>{t.navAbout}</a>
+            <a href="#experience" className={activeSection === 'experience' ? 'nav-active' : ''}>{t.navExperience}</a>
+            <a href="#education" className={activeSection === 'education' ? 'nav-active' : ''}>{t.navEducation}</a>
+            <a href="#contact" className={activeSection === 'contact' ? 'nav-active' : ''}>{t.navContact}</a>
           </div>
-        </nav>
+          <div className="lang-toggle">
+            <button
+              type="button"
+              className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+              onClick={() => setLang('en')}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              className={`lang-btn ${lang === 'id' ? 'active' : ''}`}
+              onClick={() => setLang('id')}
+            >
+              ID
+            </button>
+          </div>
+        </div>
+      </nav>
 
-        <div className="hero-content">
+      <header className="hero" id="home">
+        <div className="hero-content reveal">
           <p className="eyebrow">
             {typedRole}<span className="cursor">|</span>
           </p>
@@ -295,17 +341,13 @@ function App() {
           <p className="hero-description">{t.heroDescription}</p>
           <p className="hero-meta">📍 {t.location}</p>
           <div className="hero-actions">
-            <a className="cta" href="#experience">{t.viewExperience}</a>
-            <a className="cta secondary" href="mailto:denykurniawan146@gmail.com">{t.emailMe}</a>
-            <a className="cta whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer">{t.whatsappMe}</a>
-            <a className="cta linkedin" href={linkedinUrl} target="_blank" rel="noreferrer">{t.linkedin}</a>
             <a className="cta outline" href="/CVDenyKurniawan.pdf" download>{t.downloadCv}</a>
           </div>
         </div>
       </header>
 
       <main>
-        <section className="section" id="about">
+        <section className="section reveal" id="about">
           <h2>{t.summaryTitle}</h2>
           <p>{t.summaryText}</p>
 
@@ -325,12 +367,12 @@ function App() {
         </section>
 
         <section className="section" id="experience">
-          <h2>{t.experienceTitle}</h2>
+          <h2 className="reveal">{t.experienceTitle}</h2>
           <div className="timeline">
             {experiences.map((item, index) => (
               <div
                 key={`${item.role}-${item.company}`}
-                className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
+                className={`timeline-item reveal ${index % 2 === 0 ? 'left' : 'right'}`}
               >
                 <article className="experience-card">
                   <div className="experience-heading">
@@ -355,7 +397,7 @@ function App() {
           </div>
         </section>
 
-        <section className="section" id="education">
+        <section className="section reveal" id="education">
           <h2>{t.educationTitle}</h2>
           <div className="education-list">
             {education.map((item) => (
@@ -377,7 +419,7 @@ function App() {
           </div>
         </section>
 
-        <section className="section contact" id="contact">
+        <section className="section contact reveal" id="contact">
           <h2>{t.contactTitle}</h2>
           <p>{t.contactLead}</p>
           <div className="contact-list">

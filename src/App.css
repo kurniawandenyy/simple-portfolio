@@ -10,23 +10,26 @@
 /* ── Hero ───────────────────────────── */
 .hero {
   min-height: 92vh;
-  padding: 0 8% 3rem;
+  padding: 6rem 8% 3rem;
   background: linear-gradient(160deg, #dbeafe 0%, #e2e8f0 40%, #f8fafc 100%);
 }
 
 /* ── Nav ────────────────────────────── */
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
-  background: rgba(219, 234, 254, 0.75);
+  padding: 0.85rem 8%;
+  background: rgba(219, 234, 254, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.5);
 }
 
 .brand {
@@ -54,6 +57,12 @@
 
 .nav-links a:hover {
   color: #2563eb;
+}
+
+.nav-links a.nav-active {
+  color: #2563eb;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 2px;
 }
 
 .lang-toggle {
@@ -85,7 +94,7 @@
 /* ── Hero Content ───────────────────── */
 .hero-content {
   max-width: 720px;
-  margin-top: 4.5rem;
+  margin-top: 2rem;
 }
 
 .eyebrow {
@@ -152,43 +161,17 @@
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
 
-.cta.secondary {
-  background: #e2e8f0;
-  color: #0f172a;
-}
-
-.cta.secondary:hover {
-  background: #cbd5e1;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.cta.whatsapp {
-  background: #16a34a;
-}
-
-.cta.whatsapp:hover {
-  background: #15803d;
-  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
-}
-
-.cta.linkedin {
-  background: #0a66c2;
-}
-
-.cta.linkedin:hover {
-  background: #0958a8;
-  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.35);
-}
-
 .cta.outline {
-  background: transparent;
-  border: 1.5px solid #2563eb;
-  color: #2563eb;
+  background: #2563eb;
+  border: none;
+  color: #fff;
+  padding: 0.75rem 1.6rem;
+  font-size: 1rem;
 }
 
 .cta.outline:hover {
-  background: #eff6ff;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  background: #1d4ed8;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
 
 /* ── Main ───────────────────────────── */
@@ -197,7 +180,8 @@ main {
 }
 
 .section {
-  margin-top: 4.5rem;
+  margin-top: 6rem;
+  padding-top: 1rem;
 }
 
 .section h2 {
@@ -515,8 +499,12 @@ main {
     flex-wrap: wrap;
   }
 
+  .hero {
+    padding-top: 9rem;
+  }
+
   .hero-content {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
   .experience-heading {
@@ -559,4 +547,16 @@ main {
   .experience-card {
     padding: 1rem;
   }
+}
+
+/* ── Scroll Reveal Animation ────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
