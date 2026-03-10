@@ -326,25 +326,31 @@ function App() {
 
         <section className="section" id="experience">
           <h2>{t.experienceTitle}</h2>
-          <div className="experience-list">
-            {experiences.map((item) => (
-              <article key={`${item.role}-${item.company}`} className="experience-card">
-                <div className="experience-heading">
-                  <h3>{item.role}</h3>
-                  <p className="period">{item.period[lang]}</p>
-                </div>
-                <div className="company-row">
-                  {item.logo && (
-                    <img className="company-logo" src={item.logo} alt={item.logoAlt} />
-                  )}
-                  <p className="company">{item.company}</p>
-                </div>
-                <ul>
-                  {item.points[lang].map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
-              </article>
+          <div className="timeline">
+            {experiences.map((item, index) => (
+              <div
+                key={`${item.role}-${item.company}`}
+                className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
+              >
+                <article className="experience-card">
+                  <div className="experience-heading">
+                    <h3>{item.role}</h3>
+                    <p className="period">{item.period[lang]}</p>
+                  </div>
+                  <div className="company-row">
+                    {item.logo && (
+                      <img className="company-logo" src={item.logo} alt={item.logoAlt} loading="lazy" />
+                    )}
+                    <p className="company">{item.company}</p>
+                  </div>
+                  <ul>
+                    {item.points[lang].map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </article>
+                <div className="timeline-dot" />
+              </div>
             ))}
           </div>
         </section>
@@ -354,6 +360,9 @@ function App() {
           <div className="education-list">
             {education.map((item) => (
               <article key={item.school} className="education-card">
+                <div className="edu-icon">
+                  {item.type === 'course' ? '📖' : '🎓'}
+                </div>
                 {item.type === 'course' && (
                   <span className="edu-badge">{t.course}</span>
                 )}

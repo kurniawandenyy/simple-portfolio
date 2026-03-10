@@ -258,34 +258,91 @@ main {
   color: #1d4ed8;
 }
 
-/* ── Experience ─────────────────────── */
-.experience-list {
-  margin-top: 1.2rem;
+/* ── Experience Timeline ────────────── */
+.timeline {
+  position: relative;
+  margin-top: 2rem;
+  padding: 0 0 1rem;
+}
+
+/* center vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #dbeafe;
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 780px;
+  width: 50%;
+  padding-bottom: 2rem;
+  align-items: center;
+}
+
+/* left card — sits on the left half, card pushes right toward center */
+.timeline-item.left {
+  left: 0;
+  justify-content: flex-end;
+  padding-right: 2.5rem;
+}
+
+/* right card — sits on the right half, starting from center */
+.timeline-item.right {
+  left: 50%;
+  justify-content: flex-start;
+  padding-left: 2.5rem;
+}
+
+/* dot on the center line */
+.timeline-dot {
+  position: absolute;
+  top: calc(50% - 1rem);
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #dbeafe;
+  z-index: 1;
+}
+
+.timeline-item.left .timeline-dot {
+  right: -7px;
+}
+
+.timeline-item.right .timeline-dot {
+  left: -7px;
 }
 
 .experience-card {
+  width: 100%;
   padding: 1.25rem 1.5rem;
   border-radius: 0.9rem;
   background: #fff;
   border: 1px solid #e2e8f0;
-  border-left: 4px solid #2563eb;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.experience-card:hover {
+.timeline-item.left .experience-card:hover {
+  transform: translateX(-4px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.09);
+}
+
+.timeline-item.right .experience-card:hover {
   transform: translateX(4px);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.09);
 }
 
 .experience-heading {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.8rem;
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .experience-card h3 {
@@ -297,7 +354,6 @@ main {
   margin: 0;
   color: #64748b;
   font-size: 0.85rem;
-  white-space: nowrap;
 }
 
 .company-row {
@@ -357,6 +413,12 @@ main {
 .education-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.09);
+}
+
+.edu-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  margin-bottom: 0.6rem;
 }
 
 .education-card h3 {
@@ -465,5 +527,36 @@ main {
 
   .period {
     white-space: normal;
+  }
+
+  /* collapse zigzag to single left column on mobile */
+  .timeline::before {
+    left: 7px;
+    transform: none;
+  }
+
+  .timeline-item,
+  .timeline-item.left,
+  .timeline-item.right {
+    width: 100%;
+    left: 0;
+    justify-content: flex-start;
+    padding-left: 2rem;
+    padding-right: 0;
+  }
+
+  .timeline-item.left .timeline-dot,
+  .timeline-item.right .timeline-dot {
+    left: 0;
+    right: auto;
+  }
+
+  .timeline-item.left .experience-card:hover,
+  .timeline-item.right .experience-card:hover {
+    transform: translateX(4px);
+  }
+
+  .experience-card {
+    padding: 1rem;
   }
 }
