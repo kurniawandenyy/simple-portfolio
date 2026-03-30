@@ -17,10 +17,6 @@ const uiText = {
     heroDescription:
       'Backend Developer with 5 years of experience in JavaScript and Node.js. I focus on solving complex system issues efficiently and delivering stable, high-quality solutions across enterprise and product environments.',
     location: 'Jakarta Selatan, Indonesia',
-    viewExperience: 'View Experience',
-    emailMe: 'Email Me',
-    whatsappMe: 'WhatsApp',
-    linkedin: 'LinkedIn',
     downloadCv: 'Download CV',
     summaryTitle: 'About Me',
     summaryText:
@@ -49,11 +45,7 @@ const uiText = {
     heroDescription:
       'Backend Developer dengan pengalaman 5 tahun menggunakan JavaScript dan Node.js. Saya fokus menyelesaikan masalah sistem yang kompleks secara efisien dan menghadirkan solusi yang stabil serta berkualitas tinggi untuk lingkungan enterprise maupun product.',
     location: 'Jakarta Selatan, Indonesia',
-    viewExperience: 'Lihat Pengalaman',
-    emailMe: 'Kirim Email',
-    whatsappMe: 'WhatsApp',
     downloadCv: 'Unduh CV',
-    linkedin: 'LinkedIn',
     summaryTitle: 'Tentang Saya',
     summaryText:
       'Backend engineer yang disiplin dan berorientasi solusi, dengan kepemilikan kerja yang kuat dalam debugging, analisis sistem, dan pengembangan API. Terbukti mampu bekerja mandiri maupun kolaboratif untuk menghadirkan fitur yang scalable dan integrasi sistem yang mulus.',
@@ -101,12 +93,18 @@ const experiences = [
     period: { en: 'Jan 2025 - Present', id: 'Jan 2025 - Sekarang' },
     points: {
       en: [
-        'Led a revamp of the weighing module in the MES (Manufacturing Execution System).',
-        'Integrated the Batch Record system with a new ERP, migrating from legacy to SAP.',
+        'Rewrote the Raw Material Weighing (RMW) module from PHP to Express.js, resulting in improved performance and maintainability.',
+        'Created unit tests for the RMW module to ensure code quality and functional accuracy.',
+        'Updated manufacturing-related applications to align with the transition from Odoo to SAP.',
+        'Monitored and optimized API performance for manufacturing process applications.',
+        'Collaborated with cross-functional teams to synchronize data flows and ensure seamless ERP integration.',
       ],
       id: [
-        'Melakukan revamp modul penimbangan pada sistem MES (Manufacturing Execution System).',
-        'Mengintegrasikan sistem Batch Record dengan ERP baru dalam proses migrasi ke SAP.',
+        'Menulis ulang modul Raw Material Weighing (RMW) dari PHP ke Express.js, meningkatkan performa dan kemudahan pemeliharaan.',
+        'Membuat unit test untuk modul RMW guna memastikan kualitas kode dan akurasi fungsional.',
+        'Memperbarui aplikasi terkait manufaktur sesuai dengan transisi dari Odoo ke SAP.',
+        'Memantau dan mengoptimalkan performa API untuk aplikasi proses manufaktur.',
+        'Berkolaborasi dengan tim lintas fungsi untuk menyinkronkan alur data dan memastikan integrasi ERP yang mulus.',
       ],
     },
   },
