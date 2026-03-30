@@ -287,8 +287,6 @@ function useActiveSection(sectionIds) {
 function App() {
   const [lang, setLang] = useState('en')
   const t = uiText[lang]
-  const whatsappUrl =
-    'https://wa.me/6285186854237?text=Hello%20Deny%2C%20I%20want%20to%20discuss%20a%20backend%20opportunity.'
 
   const typedRole = useTyping([
     'Backend Developer',
@@ -423,12 +421,6 @@ function App() {
           <div className="contact-list">
             <a href="mailto:denykurniawan146@gmail.com">
               <span className="contact-icon">✉</span> denykurniawan146@gmail.com
-            </a>
-            <a href="tel:+6285186854237">
-              <span className="contact-icon">📞</span> +62 851-8685-4237
-            </a>
-            <a href={whatsappUrl} target="_blank" rel="noreferrer">
-              <span className="contact-icon">💬</span> WhatsApp
             </a>
             <a href={linkedinUrl} target="_blank" rel="noreferrer">
               <span className="contact-icon">🔗</span> linkedin.com/in/deny-kurniawan-229342197
